@@ -8,16 +8,17 @@
 - [Actual Implementation](#actual-implementation)
     + [STEP 1: Install Packer and Ansible](#step-1--install-packer-and-ansible)
     + [STEP 2: Build a sample image using Ansible and Packer](#step-2-build-a-sample-image-using-ansible-and-packer)
+    + [STEP 3: Verify the Exercise](#step-3-verify-the-exercise)
 
 ## Who should read this Blog
 This blog is continuation to the series [(Part 1)](https://blog.avmconsulting.net/posts/2019-04-07-setup-kubernetes-cluster-with-terraform-and-kops-part-1) 
 where by end of the series we would try to envision one end to end flow of  **Infrastructure As a Code** in true sense. 
-As we try to build a **containerised ecosystem** which could host any microservices using **CICD**. In the previous 
+Effort here is to build a **containerised ecosystem** which could host any microservices using **CICD**. In the previous 
 [blog](https://blog.avmconsulting.net/posts/2019-04-07-setup-kubernetes-cluster-with-terraform-and-kops-part-1)  we built
-Kubernetes Cluster using Terraform, in this blog we will see how an enterprise Docker images are built using Packer.
+`Kubernetes` Cluster using `Terraform`, in this blog we will see how an enterprise Docker images are built using `Packer`.
 
-This Blog is not for the audience who wants to get the complete overview of packer, rather the intent is to seed a thought
-which would take reader start thinking in right direction for building the Docker images which are of enterprise class.
+This Blog is not for the audience who wants to get the complete overview of packer rather the intent is to seed a thought
+which will make reader think in right direction for building the Docker images which are of enterprise class.
 
 ## Short Introduction
 If you are like me who builds his own Docker images in **CI Pipeline** because of various reasons like company security policy,
@@ -100,14 +101,17 @@ RUN set -x \
 {{< box type="info" title="Note" >}} Ref: https://docs.docker.com/engine/docker-overview/ {{< /box >}}
 
 ## Environment Used for this Exercise
-* Cloud: `AWS`\
-* Region: `us-west-2`\
-* Instance Type: `t2.medium`\
-* OS: Ubuntu `18.04`\
+* Cloud: `AWS`
+* Region: `us-west-2`
+* Instance Type: `t2.medium`
+* OS: Ubuntu `18.04`
 * AMI : `ami-005bdb005fb00e791`
 {{< box type="warning" title="Warning" >}} Please check the details before using scripts to launch it will incur some cost in the AWS {{< /box >}}
 
 ## Actual Implementation
+We will see how the challenges of Dockerfile is mitigated using the following example. we will use a ansible playbook to setup 
+required directories and also do clean up activities in same playbook. to begin with we will install both packer and ansible, then we will
+create a packer file and ansible playbook
 #### STEP 1: Install Packer and Ansible
 * clone the repo `git clone https://github.com/dbiswas1/packer`
 * cd packer
@@ -157,6 +161,17 @@ ansible 2.7.10
 
 ```
 #### STEP 2: Build a sample image using Ansible and Packer
+* Lets Create a packer json file `build-image.json`
+* Lets Create a Role in ansible which is generic to install `nginx`
+* Lets Create Ansible Playbook to use the role and customise for our Docker image `provisioner.yml`
+* Finally run `packer build build-image.json`
+```
+###############################################Partial Output###############################################################
+ 
+###############################################Partial Output###############################################################
+
+```
+#### STEP 3: Verify the Exercise 
 
 {{< box type="info" title="References" >}} 
 * https://docs.ansible.com/ansible-container/getting_started.html
