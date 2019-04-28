@@ -6,7 +6,7 @@
 - [Why not use Dockerfile rather than Packer](#why-not-use-dockerfile-rather-than-packer)
 - [Environment Used for this Exercise](#environment-used-for-this-exercise)
 - [Actual Implementation](#actual-implementation)
-    + [STEP 1: Install Packer and Ansible](#step-1--install-packer-and-ansible)
+    + [STEP 1: Install Packer and Ansible](#step-1-install-packer-and-ansible)
     + [STEP 2: Build a sample image using Ansible and Packer](#step-2-build-a-sample-image-using-ansible-and-packer)
     + [STEP 3: Verify the Exercise](#step-3-verify-the-exercise)
 
