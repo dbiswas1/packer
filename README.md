@@ -1,3 +1,14 @@
+- [Who should read this Blog](#who-should-read-this-blog)
+- [Short Introduction](#short-introduction)
+    + [Packer](#packer)
+    + [Ansible](#ansible)
+- [Problem we are trying to solve](#problem-we-are-trying-to-solve)
+  * [Why not use Dockerfile rather than Packer](#why-not-use-dockerfile-rather-than-packer)
+- [Environment Used for this Exercise](#environment-used-for-this-exercise)
+- [Actual Implementation](#actual-implementation)
+    + [STEP 1: Install Packer and Ansible](#step-1--install-packer-and-ansible)
+    + [STEP 2: Build a sample image using Ansible and Packer](#step-2--build-a-sample-image-using-ansible-and-packer)
+
 ## Who should read this Blog
 This blog is continuation to the series [(Part 1)](https://blog.avmconsulting.net/posts/2019-04-07-setup-kubernetes-cluster-with-terraform-and-kops-part-1) 
 where by end of the series we would try to envision one end to end flow of  **Infrastructure As a Code** in true sense. 
@@ -98,7 +109,7 @@ RUN set -x \
 
 ## Actual Implementation
 #### STEP 1: Install Packer and Ansible
-* clone the repo git clone 
+* clone the repo `git clone https://github.com/dbiswas1/packer`
 * cd packer
 * chmod 755 setup_build_env.sh
 * ./setup_build_env.sh
