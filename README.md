@@ -3,11 +3,11 @@
     + [Packer](#packer)
     + [Ansible](#ansible)
 - [Problem we are trying to solve](#problem-we-are-trying-to-solve)
-  * [Why not use Dockerfile rather than Packer](#why-not-use-dockerfile-rather-than-packer)
+- [Why not use Dockerfile rather than Packer](#why-not-use-dockerfile-rather-than-packer)
 - [Environment Used for this Exercise](#environment-used-for-this-exercise)
 - [Actual Implementation](#actual-implementation)
     + [STEP 1: Install Packer and Ansible](#step-1--install-packer-and-ansible)
-    + [STEP 2: Build a sample image using Ansible and Packer](#step-2--build-a-sample-image-using-ansible-and-packer)
+    + [STEP 2: Build a sample image using Ansible and Packer](#step-2-build-a-sample-image-using-ansible-and-packer)
 
 ## Who should read this Blog
 This blog is continuation to the series [(Part 1)](https://blog.avmconsulting.net/posts/2019-04-07-setup-kubernetes-cluster-with-terraform-and-kops-part-1) 
@@ -49,7 +49,7 @@ Use Packer and Ansible together without using Dockerfile to build images so that
 of Using the Dockerfile. Make use of one tool (Packer) to build any images like Virtual Images (For Developers), AMI Images,
 Docker Images and many more images if needed all using the comboination of Anible and Packer
 
-### Why not use Dockerfile rather than Packer
+## Why not use Dockerfile rather than Packer
 * Two key technologies behind Docker image and container management are: 
   * [stackable image layers and copy-on-write (CoW)](https://docs.docker.com/storage/storagedriver/) 
 * These layers (also called intermediate images) are generated when the commands in the Dockerfile are executed during the
