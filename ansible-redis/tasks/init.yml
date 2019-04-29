@@ -63,11 +63,11 @@
 
 
 - name: Uncomment Daemonize in the conf
-   lineinfile:
-     path: "{{ redis_sources_dir }}/redis.conf"
-     state: present
-     regexp: "^ # daemonize no$"
-     line: " daemonize no"
+  lineinfile:
+    path: "{{ redis_sources_dir }}/redis.conf"
+    state: present
+    regexp: "^ # daemonize no$"
+    line: " daemonize no"
 
 - name: Copy the Redis conf file
   copy:
