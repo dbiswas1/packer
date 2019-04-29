@@ -67,6 +67,7 @@
     dest: /etc/redis/
     owner: "{{redis_user}}"
     group: "{{redis_group}}"
+    remote_src: yes
     mode: 0644
 
 - name: Compile Redis sources
@@ -76,8 +77,9 @@
 
 - name: Copy the redis-senitel file
   copy:
-    src: ./src/redis-sentinel
+    src: "{{ redis_sources_dir }}/redis-{{redis_version}}/src/redis-sentinel"
     dest: /usr/local/bin/
     owner: "{{redis_user}}"
     group: "{{redis_group}}"
+    remote_src: yes
     mode: 0755
