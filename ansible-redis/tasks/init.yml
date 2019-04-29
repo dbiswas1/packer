@@ -39,14 +39,6 @@
     regexp: "^#define CONFIG_DEFAULT_PROTECTED_MODE 1$"
     line: "#define CONFIG_DEFAULT_PROTECTED_MODE 0"
 
-- name: Copy the redis-senitel file
-  copy:
-    src: ./src/redis-sentinel
-    dest: /usr/local/bin/
-    owner: "{{redis_user}}"
-    group: "{{redis_group}}"
-    mode: 0755
-
 - name: Uncomment Bind in the conf
   lineinfile:
     path: "{{ redis_sources_dir }}/redis.conf"
@@ -81,3 +73,11 @@
   make:
     chdir: "{{ redis_sources_dir }}/redis-{{redis_version}}/"
     target: install
+
+- name: Copy the redis-senitel file
+  copy:
+    src: ./src/redis-sentinel
+    dest: /usr/local/bin/
+    owner: "{{redis_user}}"
+    group: "{{redis_group}}"
+    mode: 0755
