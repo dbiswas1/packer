@@ -73,8 +73,8 @@
   copy:
     src: redis.conf
     dest: /etc/redis/
-    owner: {{redis_user}}
-    group: {{redis_group}}
+    owner: "{{redis_user}}"
+    group: "{{redis_group}}"
     mode: 0644
 
 - name: Compile Redis sources
