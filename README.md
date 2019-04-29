@@ -167,9 +167,11 @@ ansible 2.7.10
 * Lets Create Ansible Playbook to use the role and customise for our Docker image `redis.yml`
 * Please check the OFFICIAL [REDIS DOCKRFILE](https://github.com/dockerfile/redis/blob/master/Dockerfile) and compare 
 the Example you will get better understanding.
-* Finally run `cd packer-files && packer build redis.json`
 * In the following output you would see how packer launches a customised container which can use existing ansible playbook
  in the organisation to build the Docker images which complies your organisation standards.
+* Also by using ansible you get flexibilty of having same playbook to build your Docker image on any Base Operating system 
+without much changes.
+* Finally run `cd packer-files && packer build redis.json`
   
 ```
 ###############################################Partial Output###############################################################

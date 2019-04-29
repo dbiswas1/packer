@@ -61,25 +61,25 @@
     regexp: "^ # daemonize no$"
     line: " daemonize no"
 
-- name: Copy the Redis conf file
-  copy:
-    src: "{{ redis_sources_dir }}/redis-{{redis_version}}/redis.conf"
-    dest: /etc/redis/
-    owner: "{{redis_user}}"
-    group: "{{redis_group}}"
-    remote_src: yes
-    mode: 0644
+#- name: Copy the Redis conf file
+#  copy:
+#    src: "{{ redis_sources_dir }}/redis-{{redis_version}}/redis.conf"
+#    dest: /etc/redis/
+#    owner: "{{redis_user}}"
+#    group: "{{redis_group}}"
+#    remote_src: yes
+#    mode: 0644
 
 - name: Compile Redis sources
   make:
     chdir: "{{ redis_sources_dir }}/redis-{{redis_version}}/"
     target: install
 
-- name: Copy the redis-senitel file
-  copy:
-    src: "{{ redis_sources_dir }}/redis-{{redis_version}}/src/redis-sentinel"
-    dest: /usr/local/bin/
-    owner: "{{redis_user}}"
-    group: "{{redis_group}}"
-    remote_src: yes
-    mode: 0755
+#- name: Copy the redis-senitel file
+#  copy:
+#    src: "{{ redis_sources_dir }}/redis-{{redis_version}}/src/redis-sentinel"
+#    dest: /usr/local/bin/
+#    owner: "{{redis_user}}"
+#    group: "{{redis_group}}"
+#    remote_src: yes
+#    mode: 0755
