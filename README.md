@@ -166,23 +166,173 @@ ansible 2.7.10
 * Lets Create a Role in ansible which is generic to install `redis`
 * Lets Create Ansible Playbook to use the role and customise for our Docker image `redis.yml`
 * Please check the OFFICIAL [REDIS DOCKRFILE](https://github.com/dockerfile/redis/blob/master/Dockerfile) and compare 
-the Example you will get better understanding.
+the Example Playbook you will get better understanding.
 * In the following output you would see how packer launches a customised container which can use existing ansible playbook
  in the organisation to build the Docker images which complies your organisation standards.
-* Also by using ansible you get flexibilty of having same playbook to build your Docker image on any Base Operating system 
+* Also by using ansible you get flexibility of having same playbook to build your Docker image on any Base Operating system 
 without much changes.
-* Finally run `cd packer-files && packer build redis.json`
+* Run `cd packer/packer-files && packer build redis.json`
   
 ```
-###############################################Partial Output###############################################################
+############################################### Output###############################################################
+ ubuntu@ip-172-31-44-201:~/sample/packer/packer-files$ packer build redis.json
+ docker output will be in this color.
  
-###############################################Partial Output###############################################################
+ ==> docker: Creating a temporary directory for sharing data...
+ ==> docker: Pulling Docker image: debian:jessie-slim
+     docker: jessie-slim: Pulling from library/debian
+     docker: Digest: sha256:d5248fdfe8cd99173cfb2c279e4f826ef29c839d37311de0065ac003486efb0d
+     docker: Status: Image is up to date for debian:jessie-slim
+ ==> docker: Starting docker container...
+     docker: Run command: docker run -v /home/ubuntu/.packer.d/tmp:/packer-files -d -i -t --entrypoint=/bin/sh -- debian:jessie-slim
+     docker: Container ID: 2a237cc066b161f2f0794fa2a35d6a343bfc94cdc2454d14c0af07975b50c6d7
+ ==> docker: Using docker communicator to connect: 172.17.0.2
+ ==> docker: Provisioning with Ansible...
+ ==> docker: Executing Ansible: ansible-playbook --extra-vars packer_build_name=docker packer_builder_type=docker -o IdentitiesOnly=yes -i /tmp/packer-provisioner-ansible496461571 /home/ubuntu/packer/sample/redis2/packer/packer-files/redis.yml -e ansible_ssh_private_key_file=/tmp/ansible-key128705332
+     docker:
+     docker: PLAY [Setup Python] ************************************************************
+     docker:
+     docker: TASK [Boostrap python] *********************************************************
+     docker: changed: [default]
+     docker:
+     docker: PLAY [Setup Redis] *************************************************************
+     docker:
+     docker: TASK [Gathering Facts] *********************************************************
+     docker: ok: [default]
+     docker:
+     docker: TASK [../ansible-redis : Create group] *****************************************
+     docker: changed: [default]
+     docker:
+     docker: TASK [../ansible-redis : Create user] ******************************************
+     docker: changed: [default]
+     docker:
+     docker: TASK [../ansible-redis : Install dependency packages] **************************
+     docker: changed: [default] => (item=ca-certificates)
+     docker: changed: [default] => (item=wget)
+     docker: changed: [default] => (item=gcc)
+     docker: ok: [default] => (item=libc6-dev)
+     docker: changed: [default] => (item=make)
+     docker:
+     docker: TASK [../ansible-redis : Create Required Redis Build Directories] **************
+     docker: changed: [default]
+     docker:
+     docker: TASK [../ansible-redis : Create Data Home] *************************************
+     docker: changed: [default]
+     docker:
+     docker: TASK [../ansible-redis : Create Required Redis Home Directories] ***************
+     docker: changed: [default]
+     docker:
+     docker: TASK [../ansible-redis : Download and verify Redis] ****************************
+     docker: changed: [default]
+     docker:
+     docker: TASK [../ansible-redis : Unzip Redis] ******************************************
+     docker: changed: [default]
+     docker:
+     docker: TASK [../ansible-redis : Disable Redis protected mode in server.h] *************
+     docker: changed: [default]
+     docker:
+     docker: TASK [../ansible-redis : Uncomment Bind in the conf] ***************************
+     docker: changed: [default]
+     docker:
+     docker: TASK [../ansible-redis : Uncomment Daemonize in the conf] **********************
+     docker: changed: [default]
+     docker:
+     docker: TASK [../ansible-redis : Copy the Redis conf file] *****************************
+     docker: changed: [default]
+     docker:
+     docker: TASK [../ansible-redis : Compile Redis sources] ********************************
+     docker: changed: [default]
+     docker:
+     docker: TASK [../ansible-redis : Copy the redis-senitel file] **************************
+     docker: changed: [default]
+     docker:
+     docker: TASK [../ansible-redis : Remove build deps] ************************************
+     docker: changed: [default]
+     docker:
+     docker: TASK [../ansible-redis : Remove sources] ***************************************
+     docker: changed: [default]
+     docker:
+     docker: TASK [Put runtime programs] ****************************************************
+     docker: changed: [default] => (item=run.sh)
+     docker:
+     docker: PLAY [Squash the Container (Cleanup)] ******************************************
+     docker:
+     docker: TASK [Remove python] ***********************************************************
+     docker: changed: [default]
+     docker:
+     docker: TASK [Remove apt lists] ********************************************************
+     docker: changed: [default]
+     docker:
+     docker: PLAY RECAP *********************************************************************
+     docker: default                    : ok=21   changed=20   unreachable=0    failed=0
+     docker:
+ ==> docker: Committing the container
+     docker: Image ID: sha256:c98b7fa83acddafadcdb11b4ebf8c534c2f54a759549f3ad2259c64d259c3d5b
+ ==> docker: Killing the container: 2a237cc066b161f2f0794fa2a35d6a343bfc94cdc2454d14c0af07975b50c6d7
+ ==> docker: Running post-processor: docker-tag
+     docker (docker-tag): Tagging image: sha256:c98b7fa83acddafadcdb11b4ebf8c534c2f54a759549f3ad2259c64d259c3d5b
+     docker (docker-tag): Repository: avm-blog/redis:latest
+ Build 'docker' finished.
+ 
+ ==> Builds finished. The artifacts of successful builds are:
+ --> docker: Imported Docker image: sha256:c98b7fa83acddafadcdb11b4ebf8c534c2f54a759549f3ad2259c64d259c3d5b
+ --> docker: Imported Docker image: avm-blog/redis:latest
+###############################################Output###############################################################
 
 ```
 #### STEP 3: Verify the Exercise 
-* Launch the container you used and test if it is launching 
+* Launch the container you used and test if it is launching using `docker run`
 * You can also use push directive in Packer to push the image to your favourite registry
 * check `docker history` also which gives idea that we have reduced the layer
+* List the images with `docker images`
+* finally cleanup `docker rm -f $(docker ps -qa) && docker rmi avm-blog/redis`
+* See output below
+
+```
+###############################################Output###############################################################
+ubuntu@ip-172-31-44-201:~/sample/packer/packer-files$ docker images
+REPOSITORY          TAG                 IMAGE ID            CREATED             SIZE
+avm-blog/redis      latest              c98b7fa83acd        21 minutes ago      125MB
+debian              jessie-slim         c069cbf23371        4 weeks ago         81.4MB
+
+
+ubuntu@ip-172-31-44-201:~/sample/packer/packer-files$ docker history c98b7fa83acd
+IMAGE               CREATED             CREATED BY                                      SIZE                COMMENT
+c98b7fa83acd        21 minutes ago                                                      43.4MB
+c069cbf23371        4 weeks ago         /bin/sh -c #(nop)  CMD ["bash"]                 0B
+<missing>           4 weeks ago         /bin/sh -c #(nop) ADD file:7e1c64289e566a098…   81.4MB
+
+
+ubuntu@ip-172-31-44-201:~/sample/packer/packer-files$ docker run -it --rm avm-blog/redis
+1:C 29 Apr 2019 17:01:20.509 # oO0OoO0OoO0Oo Redis is starting oO0OoO0OoO0Oo
+1:C 29 Apr 2019 17:01:20.509 # Redis version=5.0.4, bits=64, commit=00000000, modified=0, pid=1, just started
+1:C 29 Apr 2019 17:01:20.509 # Configuration loaded
+                _._
+           _.-``__ ''-._
+      _.-``    `.  `_.  ''-._           Redis 5.0.4 (00000000/0) 64 bit
+  .-`` .-```.  ```\/    _.,_ ''-._
+ (    '      ,       .-`  | `,    )     Running in standalone mode
+ |`-._`-...-` __...-.``-._|'` _.-'|     Port: 6379
+ |    `-._   `._    /     _.-'    |     PID: 1
+  `-._    `-._  `-./  _.-'    _.-'
+ |`-._`-._    `-.__.-'    _.-'_.-'|
+ |    `-._`-._        _.-'_.-'    |           http://redis.io
+  `-._    `-._`-.__.-'_.-'    _.-'
+ |`-._`-._    `-.__.-'    _.-'_.-'|
+ |    `-._`-._        _.-'_.-'    |
+  `-._    `-._`-.__.-'_.-'    _.-'
+      `-._    `-.__.-'    _.-'
+          `-._        _.-'
+              `-.__.-'
+
+1:M 29 Apr 2019 17:01:20.510 # WARNING: The TCP backlog setting of 511 cannot be enforced because /proc/sys/net/core/somaxconn is set to the lower value of 128.
+1:M 29 Apr 2019 17:01:20.510 # Server initialized
+1:M 29 Apr 2019 17:01:20.510 # WARNING overcommit_memory is set to 0! Background save may fail under low memory condition. To fix this issue add 'vm.overcommit_memory = 1' to /etc/sysctl.conf and then reboot or run the command 'sysctl vm.overcommit_memory=1' for this to take effect.
+1:M 29 Apr 2019 17:01:20.511 # WARNING you have Transparent Huge Pages (THP) support enabled in your kernel. This will create latency and memory usage issues with Redis. To fix this issue run the command 'echo never > /sys/kernel/mm/transparent_hugepage/enabled' as root, and add it to your /etc/rc.local in order to retain the setting after a reboot. Redis must be restarted after THP is disabled.
+1:M 29 Apr 2019 17:01:20.511 * Ready to accept connections
+###############################################Output###############################################################
+
+```
 
 {{< box type="info" title="References" >}} 
 * https://docs.ansible.com/ansible-container/getting_started.html
