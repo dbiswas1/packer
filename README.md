@@ -180,6 +180,9 @@ without much changes.
 
 ```
 #### STEP 3: Verify the Exercise 
+* Launch the container you used and test if it is launching 
+* You can also use push directive in Packer to push the image to your favourite registry
+* check `docker history` also which gives idea that we have reduced the layer
 
 {{< box type="info" title="References" >}} 
 * https://docs.ansible.com/ansible-container/getting_started.html
