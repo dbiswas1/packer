@@ -41,14 +41,14 @@
 
 - name: Uncomment Bind in the conf
   lineinfile:
-    path: "{{ redis_sources_dir }}/redis.conf"
+    path: "{{ redis_sources_dir }}/redis-{{redis_version}}/redis.conf"
     state: present
     regexp: "^ # bind 127.0.0.1$"
     line: "bind 127.0.0.1"
 
 - name: Uncomment logfile in the conf
   lineinfile:
-    path: "{{ redis_sources_dir }}/redis.conf"
+    path: "{{ redis_sources_dir }}/redis-{{redis_version}}/redis.conf"
     state: present
     regexp: "^ # logfile$"
     line: " logfile"
@@ -56,14 +56,14 @@
 
 - name: Uncomment Daemonize in the conf
   lineinfile:
-    path: "{{ redis_sources_dir }}/redis.conf"
+    path: "{{ redis_sources_dir }}/redis-{{redis_version}}/redis.conf"
     state: present
     regexp: "^ # daemonize no$"
     line: " daemonize no"
 
 - name: Copy the Redis conf file
   copy:
-    src: redis.conf
+    src: "{{ redis_sources_dir }}/redis-{{redis_version}}/redis.conf"
     dest: /etc/redis/
     owner: "{{redis_user}}"
     group: "{{redis_group}}"

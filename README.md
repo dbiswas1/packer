@@ -161,11 +161,12 @@ ansible 2.7.10
 
 ```
 #### STEP 2: Build a sample image using Ansible and Packer
-Prerequisite: Lets Make sure Docker is installed 
-* Lets Create a packer json file `build-image.json`
-* Lets Create a Role in ansible which is generic to install `nginx`
-* Lets Create Ansible Playbook to use the role and customise for our Docker image `provisioner.yml`
-* Finally run `packer build build-image.json`
+{{< box type="info" title="Note" >}} Prerequisite: Lets Make sure Docker is installed {{< /box >}}
+* Lets Create a packer json file `redis.json`
+* Lets Create a Role in ansible which is generic to install `redis`
+* Lets Create Ansible Playbook to use the role and customise for our Docker image `redis.yml`
+* Finally run `cd packer-files && packer build redis.json`
+* Please check the OFFICIAL [DOCKRFILE]() and compare the Example you will get better understanding
 ```
 ###############################################Partial Output###############################################################
  
