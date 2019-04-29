@@ -54,12 +54,12 @@
     regexp: "^ # bind 127.0.0.1$"
     line: "bind 127.0.0.1"
 
--name: Uncomment logfile in the conf
-  lineinfile:
-    path: "{{ redis_sources_dir }}/redis.conf"
-    state: present
-    regexp: "^ # logfile$"
-    line: " logfile"
+- name: Uncomment logfile in the conf
+   lineinfile:
+     path: "{{ redis_sources_dir }}/redis.conf"
+     state: present
+     regexp: "^ # logfile$"
+     line: " logfile"
 
 
 - name: Uncomment Daemonize in the conf
