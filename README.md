@@ -46,9 +46,9 @@ Roll out enterprise-wide protocols with the push of a button. Give your team the
 {{< box type="info" title="Note" >}}  Ref: https://www.ansible.com/overview/how-ansible-works {{< /box >}}
 
 ## Problem we are trying to solve
-Use Packer and Ansible together without using Dockerfile to build images so that we really overcome the challenges 
-of Using the Dockerfile. Make use of one tool (Packer) to build any images like Virtual Images (For Developers), AMI Images,
-Docker Images and many more images if needed all using the comboination of Anible and Packer
+Use Packer and Ansible together without using Dockerfile to build images so that we really overcome the challenges of 
+Using the Dockerfile. Make use of one tool (Packer) to build any images like Virtual Images (For Developers), AMI Images, 
+Docker Images and many more images if needed all using the combination of Anible and Packer
 
 ## Why not use Dockerfile rather than Packer
 * Two key technologies behind Docker image and container management are: 
@@ -161,6 +161,7 @@ ansible 2.7.10
 
 ```
 #### STEP 2: Build a sample image using Ansible and Packer
+Prerequisite: Lets Make sure Docker is installed 
 * Lets Create a packer json file `build-image.json`
 * Lets Create a Role in ansible which is generic to install `nginx`
 * Lets Create Ansible Playbook to use the role and customise for our Docker image `provisioner.yml`
